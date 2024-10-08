@@ -10,6 +10,6 @@ const updateStudentGradeByCity = (students, city, newGrades) => {
                 })
     
     return result;
-}
+};
 
 export default updateStudentGradeByCity;

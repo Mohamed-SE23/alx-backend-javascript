@@ -6,6 +6,6 @@ const getListStudentIds = (arr) => {
     }
     // If 'arr' is not an array, return an empty array
     return [];
-}
+};
 
 export default getListStudentIds;
