@@ -1,9 +1,8 @@
-const obj1 = { id: 1, firstName: 'Guillaume', location: 'San Francisco' };
-const obj2 = { id: 2, firstName: 'James', location: 'Columbia' };
-const obj3 = { id: 5, firstName: 'Serena', location: 'San Francisco' };
-
-const array = [obj1, obj2, obj3];
-
-export function getListStudents() {
+export default function getListStudents() {
+    const array = [
+        { id: 1, firstName: 'Guillaume', location: 'San Francisco' },
+        { id: 2, firstName: 'James', location: 'Columbia' },
+        { id: 5, firstName: 'Serena', location: 'San Francisco' }
+    ];    
     return array;
 }
