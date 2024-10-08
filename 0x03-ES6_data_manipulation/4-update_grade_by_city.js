@@ -1,4 +1,4 @@
-const updateStudentGradeByCity = (students, city, newGrades) => {
+export default function updateStudentGradeByCity(students, city, newGrades) {
     const studentsCity = students.filter((student) => student.location === city)
     const result = studentsCity.map((student) => {
                     student.grade = 'N/A';
@@ -10,6 +10,4 @@ const updateStudentGradeByCity = (students, city, newGrades) => {
                 })
     
     return result;
-};
-
-export default updateStudentGradeByCity;
+}

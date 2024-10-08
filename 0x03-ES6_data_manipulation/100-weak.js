@@ -1,6 +1,6 @@
 export const weakMap = new WeakMap();
 
-export const queryAPI = (endpoint) => {
+export function queryAPI(endpoint) {
     // check if the endpoint exist in weakMap
     const queryCount = weakMap.get(endpoint) || 0;
 

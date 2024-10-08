@@ -1,4 +1,4 @@
-const hasValuesFromArray = (set, arr) => {
+export default function hasValuesFromArray(set, arr) {
     let result = false;
     for (const elem of arr){
         if (set.has(elem)){
@@ -9,6 +9,4 @@ const hasValuesFromArray = (set, arr) => {
         
     }
     return result;
-};
-
-export default hasValuesFromArray;
+}

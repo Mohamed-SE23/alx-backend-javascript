@@ -1,4 +1,4 @@
-const createInt8TypedArray = (length, position, value) => {
+export default function createInt8TypedArray(length, position, value) {
         // Create an ArrayBuffer of the specified length
         const buffer = new ArrayBuffer(length);
         
@@ -15,6 +15,4 @@ const createInt8TypedArray = (length, position, value) => {
         
         // Return the DataView
         return dataView;
-};
-
-export default createInt8TypedArray;
+}

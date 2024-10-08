@@ -12,4 +12,4 @@ export default function updateUniqueItems(map) {
     }
 
     return map;  // Return the updated map
-};
+}
