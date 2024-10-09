@@ -1,6 +1,6 @@
 {
 	"scripts": {
-	  "lint": "eslint 1-get_list_student_ids.js",
+	  "lint": "eslint 2-get_students_by_loc.js",
 	  "check-lint": "lint [0-9]*.js",
 	  "dev": "npx babel-node",
 	  "test": "jest",
