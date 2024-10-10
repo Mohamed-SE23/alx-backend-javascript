@@ -5,7 +5,7 @@ export default function hasValuesFromArray(set, arr) {
       result = true;
     } else {
       result = false;
-    }     
-  }
+    }
+  };
   return result;
 }
