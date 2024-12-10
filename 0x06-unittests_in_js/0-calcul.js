@@ -3,6 +3,5 @@ function calculateNumber(a, b) {
     const roundedB = Math.round(b);
     return roundedA + roundedB;
   }
-  
   module.exports = calculateNumber;
   
