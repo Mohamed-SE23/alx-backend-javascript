@@ -1,42 +1,26 @@
-import fs from 'fs';
-import path from 'path';
+const { readFile } = require('fs');
 
-export function readDatabase(filePath) {
+module.exports = function readDatabase(filePath) {
+  const students = {};
   return new Promise((resolve, reject) => {
-    fs.readFile(filePath, 'utf8', (err, data) => {
+    readFile(filePath, (err, data) => {
       if (err) {
-        return reject('Cannot load the database');
-      }
-      // Filter out empty lines
-      const lines = data.trim().split('\n').filter((line) => line.trim() !== '');
-      const header = lines[0].split(',').map((col) => col.trim());
-      const students = lines.slice(1).map((line) => {
-        const values = line.split(',').map((val) => val.trim());
-        const student = {};
-        header.forEach((key, index) => {
-          student[key] = values[index];
-        });
-        return student;
-      });
-      // Group students by field
-      const fields = {};
-      students.forEach((student) => {
-        const { field, firstname } = student;
-        if (field) {
-          if (!fields[field]) {
-            fields[field] = [];
+        reject(err);
+      } else {
+        const lines = data.toString().split('\n');
+        const noHeader = lines.slice(1);
+        for (let i = 0; i < noHeader.length; i += 1) {
+          if (noHeader[i]) {
+            const field = noHeader[i].toString().split(',');
+            if (Object.prototype.hasOwnProperty.call(students, field[3])) {
+              students[field[3]].push(field[0]);
+            } else {
+              students[field[3]] = [field[0]];
+            }
           }
-          fields[field].push(firstname);
         }
-      });
-      // Sort fields by name and students within each field
-      const sortedFields = Object.keys(fields)
-        .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
-        .reduce((obj, key) => {
-          obj[key] = fields[key];
-          return obj;
-        }, {});
-      resolve(sortedFields);
+        resolve(students);
+      }
     });
   });
-}
+};
