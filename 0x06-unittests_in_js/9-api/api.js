@@ -1,27 +1,18 @@
 const express = require('express');
 
 const app = express();
-const PORT = 7865;
+const port = 7865;
 
-// Root route
-app.get('/', (req, res) => {
-  res.send('Welcome to the payment system');
+app.get('/', (request, response) => {
+  response.send('Welcome to the payment system');
 });
 
-// Cart route with id validation
-app.get('/cart/:id(\\d+)', (req, res) => {
-  const { id } = req.params;
-  res.send(`Payment methods for cart ${id}`);
+app.get('/cart/:id([0-9]+)', (request, response) => {
+    response.send(`Payment methods for cart ${request.params.id}`);
 });
 
-// Catch-all for invalid routes
-app.use((req, res) => {
-  res.status(404).send('Not Found');
+app.listen(port, () => {
+    console.log(`API available on localhost port ${port}`);
 });
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`API available on localhost port ${PORT}`);
-});
-
-module.exports = app; // Export the app for testing
+module.exports = app;

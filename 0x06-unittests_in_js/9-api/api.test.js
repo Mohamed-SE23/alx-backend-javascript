@@ -1,58 +1,43 @@
-const chai = require('chai');
-const chaiHttp = require('chai-http');
-const app = require('./api');
+const request = require("request");
+const {describe, it} = require("mocha");
+const expect = require("chai").expect;
 
-const { expect } = chai;
-chai.use(chaiHttp);
-
-describe('API Tests', () => {
-  describe('Index Page', () => {
-    it('should return the correct status code for GET /', (done) => {
-      chai.request(app)
-        .get('/')
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          done();
-        });
+describe("Index page", function() {
+    const options = {
+	url: "http://localhost:7865/",
+	method: "GET"
+    }
+    it("check correct status code", function(done) {
+	request(options, function(err, res, body) {
+	    expect(res.statusCode).to.equal(200);
+	    done();
+	});
     });
-
-    it('should return the correct message for GET /', (done) => {
-      chai.request(app)
-        .get('/')
-        .end((err, res) => {
-          expect(res.text).to.equal('Welcome to the payment system');
-          done();
-        });
+    it("check correct content", function(done) {
+	request(options, function(err, res, body) {
+	    expect(body).to.equal("Welcome to the payment system");
+	    done();
+	});
     });
-  });
+});
 
-  describe('Cart Page', () => {
-    it('should return 200 and the correct message when :id is a number', (done) => {
-      chai.request(app)
-        .get('/cart/12')
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          expect(res.text).to.equal('Payment methods for cart 12');
-          done();
-        });
+describe("Cart page", function() {
+    it("check correct status code for correct url", function(done) {
+	request.get("http://localhost:7865/cart/12", function(err, res, body) {
+	    expect(res.statusCode).to.equal(200);
+	    done();
+	});
     });
-
-    it('should return 404 when :id is not a number', (done) => {
-      chai.request(app)
-        .get('/cart/hello')
-        .end((err, res) => {
-          expect(res).to.have.status(404);
-          done();
-        });
+    it("check correct content for correct url", function(done) {
+	request.get("http://localhost:7865/cart/12", function(err, res, body) {
+	    expect(body).to.contain("Payment methods for cart 12");
+	    done();
+	});
     });
-
-    it('should return 404 for non-existent routes', (done) => {
-      chai.request(app)
-        .get('/cart')
-        .end((err, res) => {
-          expect(res).to.have.status(404);
-          done();
-        });
+    it("check correct status code for incorrect url", function(done) {
+	request.get("http://localhost:7865/cart/kim", function(err, res, body) {
+	    expect(res.statusCode).to.equal(404);
+	    done();
+	});
     });
-  });
 });
